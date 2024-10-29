@@ -1,29 +1,34 @@
 import client from "@/lib/client";
-/** Replace the values below with the addresses of your smart contracts. */
-
-// 1. Set up the network your smart contracts are deployed to.
-// First, import the chain from the package, then set the NETWORK variable to the chain.
 import { getContract } from "thirdweb";
-import { sepolia } from "thirdweb/chains";
-export const NETWORK = sepolia;
+import { avalancheFuji } from "thirdweb/chains";
 
-// 2. The address of the marketplace V3 smart contract.
-// Deploy your own: https://thirdweb.com/thirdweb.eth/MarketplaceV3
-const MARKETPLACE_ADDRESS = "0x38ab4489E479c9266471bbe8C3794CB30EA11F20";
+// Import the ABI
+import marketplaceABI from "@/abis/Marketplace.json";
+import nftCollectionABI from "@/abis/NFTCollection.json";
+
+export const NETWORK = avalancheFuji;
+
+// Typecast ABIs to `Abi` to align with the `getContract` type
 export const MARKETPLACE = getContract({
-	address: MARKETPLACE_ADDRESS,
-	client,
-	chain: NETWORK,
+  address: "0x82CEB90fe3b398B622397E9F19592dE4F4F80988",
+  client,
+  chain: NETWORK,
+  abi: marketplaceABI as any,  // Typecasting to Abi
 });
 
-// 3. The address of your NFT collection smart contract.
-const NFT_COLLECTION_ADDRESS = "0x72a6eb347D86Bb5DE9c3c6a3DFAb6f2eff80F3C9";
 export const NFT_COLLECTION = getContract({
-	address: NFT_COLLECTION_ADDRESS,
-	client,
-	chain: NETWORK,
+  address: "0xeA6573Bc72C87C59998A22d5A9a59e1AA5866Bd5",
+  client,
+  chain: NETWORK,
+  abi: nftCollectionABI as any,  // Typecasting to Abi
 });
 
-// (Optional) Set up the URL of where users can view transactions on
-// For example, below, we use Mumbai.polygonscan to view transactions on the Mumbai testnet.
-export const ETHERSCAN_URL = "https://sepolia.etherscan.io";
+// Optional URL for transaction viewing
+export const ETHERSCAN_URL = "https://testnet.snowtrace.io/";
+
+
+export const ALLOWED_WALLETS = [
+	"0xeb029Ebe06ab0BF3303aA4f6382B402ba640bB67",
+	"0xb4D5cd76A19adf9E51F1b78fa948a7f5570DAE98",
+	// Add more allowed wallet addresses here
+  ];

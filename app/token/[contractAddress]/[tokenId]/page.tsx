@@ -87,10 +87,10 @@ export default async function TokenPage({
 						)}
 					</div>
 				</div>
-				<div className="px-4">
+				{/* <div className="px-4">
 					<h3 className="mt-8">History</h3>
 					<Events tokenId={nft.id} />
-				</div>
+				</div> */}
 			</div>
 
 			<div className="flex-shrink sticky w-full min-w-[370px] lg:max-w-[450px]">
