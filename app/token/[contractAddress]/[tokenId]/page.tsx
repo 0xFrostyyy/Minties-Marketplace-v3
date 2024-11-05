@@ -61,12 +61,12 @@ export default async function TokenPage({
 				/>
 				<div className="flex items-center justify-between my-4">
 					<div>
-						<h1 className="mx-4 text-3xl font-semibold break-words hyphens-auto">
+						<h1 className="mx-4 text-3xl font-semibold break-words hyphens-auto text-black">
 							{nft.metadata.name}
 						</h1>
-						<p className="mx-4 overflow-hidden text-ellipsis whitespace-nowrap">
+						{/* <p className="mx-4 overflow-hidden text-ellipsis whitespace-nowrap text-black">
 							#{nft.id.toString()}
-						</p>
+						</p> */}
 					</div>
 
 					<div className="flex items-center gap-4 transition-all cursor-pointer hover:opacity-80">
@@ -78,8 +78,8 @@ export default async function TokenPage({
 						/>
 						{nft.owner && (
 							<div className="flex flex-col">
-								<p className="text-white/60">Current Owner</p>
-								<p className="font-medium text-white/90">
+								<p className="text-black/60">Current Owner</p>
+								<p className="font-medium text-black/90">
 									{nft.owner.slice(0, 8)}...
 									{nft.owner.slice(-4)}
 								</p>
@@ -97,8 +97,8 @@ export default async function TokenPage({
 				<div className="relative flex flex-col w-full mb-6 overflow-hidden bg-transparent rounded-lg grow">
 					{/* Pricing information */}
 					<div className="p-4 rounded-lg w-full bg-white/[.04]">
-						<p className="mb-1 text-white/60">Price</p>
-						<div className="text-lg font-medium rounded-md text-white/90">
+						<p className="mb-1 text-black/60">Price</p>
+						<div className="text-lg font-medium rounded-md text-black/90">
 							{directListing ? (
 								<>
 									{
@@ -127,7 +127,7 @@ export default async function TokenPage({
 							{auctionListing && (
 								<>
 									<p
-										className="mb-4 text-white/60"
+										className="mb-4 text-black/60"
 										style={{
 											marginTop: 12,
 										}}
@@ -135,7 +135,7 @@ export default async function TokenPage({
 										Bids starting from
 									</p>
 
-									<div className="font-medium rounded-md font-lg text-white/90">
+									<div className="font-medium rounded-md font-lg text-black/90">
 										{
 											auctionListing
 												?.minimumBidCurrencyValue
@@ -157,13 +157,13 @@ export default async function TokenPage({
 						auctionListing={auctionListing}
 					/>
 
-					<div className="flex justify-center w-full my-4 text-center">
-						<p className="text-white/60">or</p>
+					{/* <div className="flex justify-center w-full my-4 text-center">
+						<p className="text-black/60">or</p>
 					</div>
 					<MakeOfferButton
 						auctionListing={auctionListing}
 						directListing={directListing}
-					/>
+					/> */}
 				</div>
 			</div>
 		</div>

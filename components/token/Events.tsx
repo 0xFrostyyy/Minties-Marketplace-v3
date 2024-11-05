@@ -18,13 +18,13 @@ export default function Events({ tokenId }: { tokenId: bigint }) {
           className="flex justify-between items-center flex-1 gap-1 border-white/20 py-2 min-w-[128px] min-h-[32px]"
         >
           <div className="flex flex-col gap-1">
-            <p className="text-white/60">Event</p>
-            <p className="font-semibold text-white">Transfer</p>
+            <p className="text-black/60">Event</p>
+            <p className="font-semibold text-black">Transfer</p>
           </div>
 
           <div className="flex flex-col gap-1">
-            <p className="text-white/60">From</p>
-            <p className="font-semibold text-white">
+            <p className="text-black/60">From</p>
+            <p className="font-semibold text-black">
               {event.args.from.slice(0, 4)}
 							...
               {event.args.from.slice(-2)}
@@ -32,8 +32,8 @@ export default function Events({ tokenId }: { tokenId: bigint }) {
           </div>
 
           <div className="flex flex-col gap-1">
-            <p className="text-white/60">To</p>
-            <p className="font-semibold text-white">
+            <p className="text-black/60">To</p>
+            <p className="font-semibold text-black">
               {event.args.to.slice(0, 4)}
 							...
               {event.args.to.slice(-2)}

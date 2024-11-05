@@ -16,7 +16,7 @@ type Props = {
 
 const INPUT_STYLES =
 	"block w-full py-3 px-4 mb-4 bg-transparent border border-white text-base box-shadow-md rounded-lg mb-4";
-const LEGEND_STYLES = "mb-2 text-white/80";
+const LEGEND_STYLES = "mb-2 text-black/80";
 export default function SaleInfo({ nft }: Props) {
   const account = useActiveAccount();
   const [tab, setTab] = useState<"direct" | "auction">("direct");
@@ -41,7 +41,7 @@ export default function SaleInfo({ nft }: Props) {
         <div className="flex justify-start w-full mb-6 border-b border-white/60">
           <h3
             className={cn(
-              "px-4 h-12 flex items-center justify-center text-base font-semibold cursor-pointer transition-all hover:text-white/80",
+              "px-4 h-12 flex items-center justify-center text-base font-semibold cursor-pointer transition-all hover:text-black/80",
               tab === "direct" &&
 								"text-[#0294fe] border-b-2 border-[#0294fe]"
             )}
@@ -51,7 +51,7 @@ export default function SaleInfo({ nft }: Props) {
           </h3>
           <h3
             className={cn(
-              "px-4 h-12 flex items-center justify-center text-base font-semibold cursor-pointer transition-all hover:text-white/80",
+              "px-4 h-12 flex items-center justify-center text-base font-semibold cursor-pointer transition-all hover:text-black/80",
               tab === "auction" &&
 								"text-[#0294fe] border-b-2 border-[#0294fe]"
             )}

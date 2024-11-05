@@ -45,7 +45,7 @@ export default function NFTComponent({
 
   return (
     <div
-      className="cursor-pointer transition-all hover:scale-105 hover:shadow-lg flex flex-col w-full h-[350px] bg-white/[.04] justify-stretch border overflow-hidden border-white/10 rounded-lg"
+      className="cursor-pointer bg-[#4D8B31] transition-all hover:scale-105 hover:shadow-lg flex flex-col w-full h-[350px] bg-white/[.04] justify-stretch border overflow-hidden border-white/10 rounded-lg"
       onClick={
         overrideOnclickBehavior
           ? () => overrideOnclickBehavior(nft!)
@@ -68,20 +68,20 @@ export default function NFTComponent({
       </div>
       <div className="flex items-center justify-between flex-1 w-full px-3">
         <div className="flex flex-col justify-center py-3">
-          <p className="max-w-full overflow-hidden text-lg text-white text-ellipsis whitespace-nowrap">
+          <p className="max-w-full overflow-hidden text-lg text-black text-ellipsis whitespace-nowrap">
             {nft.metadata.name}
           </p>
-          <p className="text-sm font-semibold text-white/60">
+          <p className="text-sm font-semibold text-black/60">
 						#{nft.id.toString()}
           </p>
         </div>
 
         {(directListing || auctionListing) && (
           <div className="flex flex-col items-end justify-center">
-            <p className="max-w-full mb-1 overflow-hidden font-medium text-ellipsis whitespace-nowrap text-white/60">
+            <p className="max-w-full mb-1 overflow-hidden font-medium text-ellipsis whitespace-nowrap text-black/60">
 							Price
             </p>
-            <p className="max-w-full overflow-hidden text-white text-ellipsis whitespace-nowrap">
+            <p className="max-w-full overflow-hidden text-black text-ellipsis whitespace-nowrap">
               {directListing
                 ? `${directListing?.currencyValuePerToken.displayValue}${directListing?.currencyValuePerToken.symbol}`
                 : `${auctionListing?.minimumBidCurrencyValue.displayValue}${auctionListing?.minimumBidCurrencyValue.symbol}`}

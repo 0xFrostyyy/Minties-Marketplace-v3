@@ -37,7 +37,7 @@ export default function NFTGrid({
         </div>
       ) : (
         <div className="flex justify-center items-center h-[500px]">
-          <p className="max-w-lg text-lg font-semibold text-center text-white/60">
+          <p className="max-w-lg text-lg font-semibold text-center text-black/60">
             {emptyText}
           </p>
         </div>

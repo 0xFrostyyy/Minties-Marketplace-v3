@@ -67,6 +67,10 @@ export default function BuyListingButton({
 					position: "bottom-center",
 				});
 			}}
+			style={{
+				backgroundColor: "#4D8B31", // Your preferred background color
+				color: "#000",           // Text color
+			  }}
 		>
 			Buy Now
 		</TransactionButton>

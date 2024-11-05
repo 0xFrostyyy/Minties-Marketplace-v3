@@ -16,12 +16,12 @@ export function Navbar() {
   console.log("Is allowed wallet:", isAllowedWallet);
 
   return (
-    <div className="fixed top-0 z-10 flex items-center justify-center w-full bg-transparent text-white/60 backdrop-blur-md">
+    <div className="fixed top-0 z-10 flex items-center justify-center w-full bg-transparent text-black/60 backdrop-blur-md">
       <nav className="flex items-center justify-between w-full px-8 py-5 mx-auto max-w-7xl">
         <div className="flex items-center gap-3">
           <Link href="/" className="mr-4">
             <Image
-              src="/logo.png"
+              src="/minties3.png"
               width={48}
               height={48}
               alt="NFT marketplace sample logo"
@@ -29,12 +29,12 @@ export function Navbar() {
           </Link>
 
           <div className="flex items-center gap-6 font-medium">
-            <Link href="/buy" className="transition hover:text-white/100">
+            <Link href="/buy" className="transition hover:text-black/100">
               Buy
             </Link>
             {/* Conditionally render the "Sell" link if the connected wallet is allowed */}
             {isAllowedWallet && (
-              <Link href="/sell" className="transition hover:text-white/100">
+              <Link href="/sell" className="transition hover:text-black/100">
                 Sell
               </Link>
             )}
