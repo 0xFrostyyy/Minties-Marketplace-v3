@@ -125,13 +125,6 @@ export default function Sell() {
   };
   
   
-  
-  
-  
-  console.log("Connected account:", account?.address);
-	console.log("Allowed wallets:", ALLOWED_WALLETS);
-
-	console.log("Is allowed wallet:", isAllowedWallet);
 
   return (
 	<div>
@@ -191,13 +184,13 @@ export default function Sell() {
                   onChange={(e) => setPricePerToken(e.target.value)}
                   className="w-full mt-2 p-2 border rounded"
                 />
-				<input
-					type="text"
-					placeholder="Currency Address (optional)"
-					value={currencyAddress}
-					onChange={(e) => setCurrencyAddress(e.target.value)}
-					className="w-full mt-2 p-2 border rounded"
-					/>
+                <input
+                  type="text"
+                  placeholder="Currency Address (optional)"
+                  value={currencyAddress}
+                  onChange={(e) => setCurrencyAddress(e.target.value)}
+                  className="w-full mt-2 p-2 border rounded"
+                  />
 
                 <div className="flex items-center mt-2">
                   <input

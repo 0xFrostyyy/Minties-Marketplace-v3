@@ -11,10 +11,6 @@ export function Navbar() {
   const isAllowedWallet =
     account && ALLOWED_WALLETS.some(wallet => wallet.toLowerCase() === account.address.toLowerCase());
 
-  console.log("Connected account:", account?.address);
-  console.log("Allowed wallets:", ALLOWED_WALLETS);
-  console.log("Is allowed wallet:", isAllowedWallet);
-
   return (
     <div className="fixed top-0 z-10 flex items-center justify-center w-full bg-transparent text-black/60 backdrop-blur-md">
       <nav className="flex items-center justify-between w-full px-8 py-5 mx-auto max-w-7xl">
