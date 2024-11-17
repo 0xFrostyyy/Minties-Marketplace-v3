@@ -6,9 +6,7 @@ import "@/globals.css";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "thirdweb Marketplace Template",
-  description:
-		"Create an NFT marketplace on top of your NFT collection on any EVM-compatible blockchain.",
+  title: "Minties Marketplace",
 };
 
 export default function RootLayout({
