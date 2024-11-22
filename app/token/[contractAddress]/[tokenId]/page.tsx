@@ -55,13 +55,13 @@ export default async function TokenPage({
 		<div className="flex flex-col max-w-2xl gap-16 mx-auto mt-32 lg:max-w-full lg:flex-row">
 			<div className="flex flex-col flex-1">
 				<MediaRenderer
-					src={nft.metadata.image}
+					src="/56.png.png"
 					client={client}
 					className="rounded-lg !w-full bg-white/[.04]"
 				/>
 				<div className="flex items-center justify-between my-4">
 					<div>
-						<h1 className="mx-4 text-3xl font-semibold break-words hyphens-auto text-black">
+						<h1 className="mx-4 text-3xl font-semibold break-words hyphens-auto text-black text-[#EDFFFF]">
 							{nft.metadata.name}
 						</h1>
 						{/* <p className="mx-4 overflow-hidden text-ellipsis whitespace-nowrap text-black">
@@ -69,7 +69,7 @@ export default async function TokenPage({
 						</p> */}
 					</div>
 
-					<div className="flex items-center gap-4 transition-all cursor-pointer hover:opacity-80">
+					{/* <div className="flex items-center gap-4 transition-all cursor-pointer hover:opacity-80">
 						<div
 							className="w-12 h-12 overflow-hidden border-2 rounded-full opacity-90 border-white/20"
 							style={{
@@ -78,14 +78,14 @@ export default async function TokenPage({
 						/>
 						{nft.owner && (
 							<div className="flex flex-col">
-								<p className="text-black/60">Current Owner</p>
+								<p className=" text-[#EDFFFF]">Current Owner</p>
 								<p className="font-medium text-black/90">
 									{nft.owner.slice(0, 8)}...
 									{nft.owner.slice(-4)}
 								</p>
 							</div>
 						)}
-					</div>
+					</div> */}
 				</div>
 				{/* <div className="px-4">
 					<h3 className="mt-8">History</h3>
@@ -96,9 +96,9 @@ export default async function TokenPage({
 			<div className="flex-shrink sticky w-full min-w-[370px] lg:max-w-[450px]">
 				<div className="relative flex flex-col w-full mb-6 overflow-hidden bg-transparent rounded-lg grow">
 					{/* Pricing information */}
-					<div className="p-4 rounded-lg w-full bg-white/[.04]">
-						<p className="mb-1 text-black/60">Price</p>
-						<div className="text-lg font-medium rounded-md text-black/90">
+					<div className="p-4 rounded-lg w-full bg-[#EED3B1]">
+						<p className="mb-1  text-black">Price</p>
+						<div className="text-lg font-medium rounded-md  text-black">
 							{directListing ? (
 								<>
 									{

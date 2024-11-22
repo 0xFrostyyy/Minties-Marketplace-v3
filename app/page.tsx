@@ -20,27 +20,27 @@ const Home: NextPage = () => {
         />
       </div>
       <div className="px-8 mx-auto text-center">
-        <h1 className="mb-5 text-black font-bold md:text-6xl">
-          <span className="text-transparent bg-clip-text gradient">
-						One Stop Marketplace
+        <h1 className="mb-5 text-black font-bold md:text-6xl text-[#EDFFFF] ">
+          <span className="text-[#EDFFFF]">
+						Minties Marketplace
           </span>
-          <br />
-					Unique Offers
         </h1>
-        <p className="text-black/60 text-lg max-w-xl mx-auto">
-					Special place to buy unique and limited items from the marketplace using or own tokens!
+        <p className="text-[#EDFFFF] text-[1.2rem] max-w-xl mx-auto">
+          Step into the jungle&apos;s trading hub, where tokens turn into treasures! 
+          <br />
+          Explore rare items, unlock hidden wonders, and gear up for your Minties adventure.
         </p>
 
         <div className="flex justify-center text-lg font-medium items-center mt-12 gap-4">
           <Link
-            className="w-56 p-3 rounded-lg transition-all text-black hover:shadow-lg gradient border-white/10 border"
+            className="w-56 p-3 rounded-lg transition-all text-black bg-[#EED3B1] border-white/10 border"
             href="https://discord.gg/minties"
             target="_blank"
           >
 						Discord
           </Link>
           <Link
-            className="w-56 p-3 rounded-lg transition-all text-black hover:shadow-lg gradient border-white/10 border"
+            className="w-56 p-3 rounded-lg transition-all text-black bg-[#EED3B1] border-white/10 border"
             href="https://twitter.com/Seiminties"
             target="_blank"
           >

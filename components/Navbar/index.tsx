@@ -17,7 +17,7 @@ export function Navbar() {
         <div className="flex items-center gap-3">
           <Link href="/" className="mr-4">
             <Image
-              src="/minties3.png"
+              src="/logo.png"
               width={48}
               height={48}
               alt="NFT marketplace sample logo"
@@ -25,12 +25,12 @@ export function Navbar() {
           </Link>
 
           <div className="flex items-center gap-6 font-medium">
-            <Link href="/buy" className="transition hover:text-black/100">
+            <Link href="/buy" className="transition text-[#EDFFFF]">
               Buy
             </Link>
             {/* Conditionally render the "Sell" link if the connected wallet is allowed */}
             {isAllowedWallet && (
-              <Link href="/sell" className="transition hover:text-black/100">
+              <Link href="/sell" className="transition text-[#EDFFFF]">
                 Sell
               </Link>
             )}

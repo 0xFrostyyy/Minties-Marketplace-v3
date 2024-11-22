@@ -45,7 +45,7 @@ export default function NFTComponent({
 
   return (
     <div
-      className="cursor-pointer bg-[#4D8B31] transition-all hover:scale-105 hover:shadow-lg flex flex-col w-full h-[350px] bg-white/[.04] justify-stretch border overflow-hidden border-white/10 rounded-lg"
+      className="cursor-pointer bg-[#EED3B1] transition-all hover:scale-105 hover:shadow-lg flex flex-col w-full h-[400px] bg-white/[.04] justify-stretch border overflow-hidden border-[#EED3B1] rounded-lg"
       onClick={
         overrideOnclickBehavior
           ? () => overrideOnclickBehavior(nft!)
@@ -66,7 +66,7 @@ export default function NFTComponent({
           />
         )}
       </div>
-      <div className="flex items-center justify-between flex-1 w-full px-3">
+      <div className="flex items-center justify-between flex-1 w-full px-3 pt-2">
         <div className="flex flex-col justify-center py-3">
           <p className="max-w-full overflow-hidden text-lg text-black text-ellipsis whitespace-nowrap">
             {nft.metadata.name}
@@ -95,7 +95,7 @@ export default function NFTComponent({
 
 export function LoadingNFTComponent() {
   return (
-    <div className="w-full h-[350px] rounded-lg">
+    <div className="w-full h-[400px] rounded-lg">
       <Skeleton width="100%" height="100%" />
     </div>
   );

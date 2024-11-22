@@ -16,7 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="relative overflow-x-hidden max-w-screen bg-[#B0FE76]">
+      <body 
+        className="relative overflow-x-hidden max-w-screen bg-cover bg-center"
+        style={{ backgroundImage: "url('/background.jpg')" }} 
+      >
 
         <Toaster />
         <ThirdwebProvider>

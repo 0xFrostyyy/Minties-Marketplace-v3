@@ -68,7 +68,7 @@ export default function BuyListingButton({
 				});
 			}}
 			style={{
-				backgroundColor: "#4D8B31", // Your preferred background color
+				backgroundColor: "#EED3B1", // Your preferred background color
 				color: "#000",           // Text color
 			  }}
 		>
