@@ -45,7 +45,7 @@ export default function NFTComponent({
 
   return (
     <div
-      className="cursor-pointer bg-[#EED3B1] transition-all hover:scale-105 hover:shadow-lg flex flex-col w-full h-[400px] bg-white/[.04] justify-stretch border overflow-hidden border-[#EED3B1] rounded-lg"
+      className="cursor-pointer bg-[#EED3B1] transition-all hover:scale-105 hover:shadow-lg flex flex-col w-full h-[400px] bg-[#EED3B1]] justify-stretch border overflow-hidden border-[#EED3B1] rounded-lg"
       onClick={
         overrideOnclickBehavior
           ? () => overrideOnclickBehavior(nft!)
