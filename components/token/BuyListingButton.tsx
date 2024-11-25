@@ -32,7 +32,7 @@ export default function BuyListingButton({
 }) {
   const account = useActiveAccount();
 
-  const handleTransaction = async () => {
+  const handleTransaction = async (): Promise<any> => {
     if (!account) {
       toast.error("Please connect your wallet first", {
         position: "bottom-center",
@@ -50,49 +50,59 @@ export default function BuyListingButton({
       throw new Error("Invalid account configuration");
     }
     
+    
     try {
-      if (directListing) {
-        if (!directListing.currencyContractAddress) {
-          throw new Error("Invalid listing currency contract");
-        }
-
-        const approvalTx = {
-          from: account.address,
-          to: directListing.currencyContractAddress,
-          data: encodeApproveCall(MARKETPLACE.address)
-        };
-
-        console.log("Sending approval transaction:", approvalTx);
-
-        const approvalResult = await account.sendTransaction(approvalTx);
-        console.log("Approval transaction sent:", approvalResult);
-
-        toast.success("Token spending approved", {
-          position: "bottom-center",
-          style: toastStyle,
-        });
-
-        // Wait for approval confirmation
-        await new Promise(resolve => setTimeout(resolve, 2000));
-
-        // Proceed with purchase
-        return buyFromListing({
-          contract: MARKETPLACE,
-          listingId: directListing.id,
-          recipient: account.address,
-          quantity: BigInt(1),
-        });
-
-      } else if (auctionListing) {
-        if (!auctionListing.buyoutCurrencyContractAddress) {
-          throw new Error("Invalid auction currency contract");
-        }
-
-        const approvalTx = {
-          from: account.address,
-          to: auctionListing.buyoutCurrencyContractAddress,
-          data: encodeApproveCall(MARKETPLACE.address)
-        };
+		if (directListing) {
+			if (!directListing.currencyContractAddress) {
+			  throw new Error("Invalid listing currency contract");
+			}
+		  
+			const approvalTx = {
+			  to: directListing.currencyContractAddress,
+			  data: encodeApproveCall(MARKETPLACE.address) as `0x${string}`,
+			  authorizationList: [],
+			  chainId: 1  // replace with your chain ID
+			};
+		  
+			console.log("Sending approval transaction:", approvalTx);
+		  
+			const approvalResult = await account.sendTransaction(approvalTx);
+			console.log("Approval transaction sent:", approvalResult);
+		  
+			toast.success("Token spending approved", {
+			  position: "bottom-center",
+			  style: toastStyle,
+			});
+		  
+			await new Promise(resolve => setTimeout(resolve, 2000));
+		  
+			const buyTransaction = buyFromListing({
+			  contract: MARKETPLACE,
+			  listingId: directListing.id,
+			  recipient: account.address,
+			  quantity: BigInt(1),
+			});
+		  
+			if (!buyTransaction) {
+			  throw new Error("Failed to prepare buy transaction");
+			}
+		  
+			return buyTransaction;
+  
+		} else if (auctionListing) {
+		  if (!auctionListing.currencyContractAddress) {
+			throw new Error("Invalid auction currency contract");
+		  }
+  
+		  const approvalTx = {
+			to: auctionListing.currencyContractAddress,
+			data: encodeApproveCall(MARKETPLACE.address) as `0x${string}`,
+			authorizationList: [],
+			chainId: 1  // replace with your chain ID
+		  };
+  
+		  console.log("Sending auction approval transaction:", approvalTx);
+  
 
         console.log("Sending auction approval transaction:", approvalTx);
 
