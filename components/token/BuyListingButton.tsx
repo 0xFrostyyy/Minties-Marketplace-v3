@@ -1,78 +1,186 @@
 "use client";
 import { TransactionButton, useActiveAccount } from "thirdweb/react";
 import {
-	DirectListing,
-	EnglishAuction,
-	buyFromListing,
-	buyoutAuction,
+  DirectListing,
+  EnglishAuction,
+  buyFromListing,
+  buyoutAuction,
 } from "thirdweb/extensions/marketplace";
-import { MARKETPLACE, NFT_COLLECTION } from "@/const/contracts";
+import { MARKETPLACE } from "@/const/contracts";
 import toastStyle from "@/util/toastConfig";
 import toast from "react-hot-toast";
-import { revalidatePath } from "next/cache";
+import { ethers } from 'ethers';
+
+// Encode ERC20 approve function call
+function encodeApproveCall(spender: string) {
+  // approve(address,uint256) function signature
+  const functionSignature = '0x095ea7b3';
+  // Pad the address to 32 bytes
+  const paddedAddress = spender.toLowerCase().slice(2).padStart(64, '0');
+  // Max uint256 value padded to 32 bytes
+  const paddedAmount = 'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff';
+  
+  return `${functionSignature}${paddedAddress}${paddedAmount}`;
+}
 
 export default function BuyListingButton({
-	auctionListing,
-	directListing,
+  auctionListing,
+  directListing,
 }: {
-	auctionListing?: EnglishAuction;
-	directListing?: DirectListing;
+  auctionListing?: EnglishAuction;
+  directListing?: DirectListing;
 }) {
-	const account = useActiveAccount();
-	return (
-		<TransactionButton
-			disabled={
-				account?.address === auctionListing?.creatorAddress ||
-				account?.address === directListing?.creatorAddress ||
-				(!directListing && !auctionListing)
-			}
-			transaction={() => {
-				if (!account) throw new Error("No account");
-				if (auctionListing) {
-					return buyoutAuction({
-						contract: MARKETPLACE,
-						auctionId: auctionListing.id,
-					});
-				} else if (directListing) {
-					return buyFromListing({
-						contract: MARKETPLACE,
-						listingId: directListing.id,
-						recipient: account.address,
-						quantity: BigInt(1),
-					});
-				} else {
-					throw new Error("No valid listing found for this NFT");
-				}
-			}}
-			onTransactionSent={() => {
-				toast.loading("Purchasing...", {
-					id: "buy",
-					style: toastStyle,
-					position: "bottom-center",
-				});
-			}}
-			onError={(error) => {
-				toast(`Purchase Failed!`, {
-					icon: "❌",
-					id: "buy",
-					style: toastStyle,
-					position: "bottom-center",
-				});
-			}}
-			onTransactionConfirmed={(txResult) => {
-				toast("Purchased Successfully!", {
-					icon: "🥳",
-					id: "buy",
-					style: toastStyle,
-					position: "bottom-center",
-				});
-			}}
-			style={{
-				backgroundColor: "#EED3B1", // Your preferred background color
-				color: "#000",           // Text color
-			  }}
-		>
-			Buy Now
-		</TransactionButton>
-	);
+  const account = useActiveAccount();
+
+  const handleTransaction = async () => {
+    if (!account) {
+      toast.error("Please connect your wallet first", {
+        position: "bottom-center",
+        style: toastStyle,
+      });
+      throw new Error("No wallet connected");
+    }
+
+    if (!account.sendTransaction || typeof account.sendTransaction !== 'function') {
+      console.error("Invalid account structure:", account);
+      toast.error("Wallet connection issue. Please try reconnecting.", {
+        position: "bottom-center",
+        style: toastStyle,
+      });
+      throw new Error("Invalid account configuration");
+    }
+    
+    try {
+      if (directListing) {
+        if (!directListing.currencyContractAddress) {
+          throw new Error("Invalid listing currency contract");
+        }
+
+        const approvalTx = {
+          from: account.address,
+          to: directListing.currencyContractAddress,
+          data: encodeApproveCall(MARKETPLACE.address)
+        };
+
+        console.log("Sending approval transaction:", approvalTx);
+
+        const approvalResult = await account.sendTransaction(approvalTx);
+        console.log("Approval transaction sent:", approvalResult);
+
+        toast.success("Token spending approved", {
+          position: "bottom-center",
+          style: toastStyle,
+        });
+
+        // Wait for approval confirmation
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        // Proceed with purchase
+        return buyFromListing({
+          contract: MARKETPLACE,
+          listingId: directListing.id,
+          recipient: account.address,
+          quantity: BigInt(1),
+        });
+
+      } else if (auctionListing) {
+        if (!auctionListing.buyoutCurrencyContractAddress) {
+          throw new Error("Invalid auction currency contract");
+        }
+
+        const approvalTx = {
+          from: account.address,
+          to: auctionListing.buyoutCurrencyContractAddress,
+          data: encodeApproveCall(MARKETPLACE.address)
+        };
+
+        console.log("Sending auction approval transaction:", approvalTx);
+
+        const approvalResult = await account.sendTransaction(approvalTx);
+        console.log("Auction approval transaction sent:", approvalResult);
+
+        toast.success("Token spending approved", {
+          position: "bottom-center",
+          style: toastStyle,
+        });
+
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        return buyoutAuction({
+          contract: MARKETPLACE,
+          auctionId: auctionListing.id,
+        });
+      } else {
+        throw new Error("No valid listing found for this NFT");
+      }
+    } catch (error: any) {
+      console.error("Transaction Error:", {
+        error,
+        message: error.message,
+        listing: directListing || auctionListing,
+      });
+      throw error;
+    }
+  };
+
+  return (
+    <TransactionButton
+      disabled={
+        !account || 
+        account?.address === auctionListing?.creatorAddress ||
+        account?.address === directListing?.creatorAddress ||
+        (!directListing && !auctionListing)
+      }
+      transaction={handleTransaction}
+      onTransactionSent={() => {
+        toast.loading("Processing purchase...", {
+          id: "buy",
+          style: toastStyle,
+          position: "bottom-center",
+        });
+      }}
+      onError={(error) => {
+        console.error("Transaction Error Details:", error);
+        let errorMessage = "Purchase Failed! Please make sure you have enough tokens and they are approved for spending.";
+        
+        if (error instanceof Error) {
+          if (error.message.toLowerCase().includes("user denied") || 
+              error.message.toLowerCase().includes("user rejected")) {
+            errorMessage = "Transaction was rejected by user";
+          } else {
+            errorMessage = error.message;
+          }
+        }
+        
+        toast(errorMessage, {
+          icon: "❌",
+          id: "buy",
+          style: toastStyle,
+          position: "bottom-center",
+          duration: 5000,
+        });
+      }}
+      onTransactionConfirmed={(txResult) => {
+        console.log("Transaction Confirmed:", {
+          hash: txResult.transactionHash,
+          timestamp: new Date().toISOString(),
+          type: auctionListing ? "auction" : "direct",
+          listingId: auctionListing?.id || directListing?.id
+        });
+
+        toast("Purchased Successfully!", {
+          icon: "🥳",
+          id: "buy",
+          style: toastStyle,
+          position: "bottom-center",
+        });
+      }}
+      style={{
+        backgroundColor: "#EED3B1",
+        color: "#000",
+      }}
+    >
+      Buy Now
+    </TransactionButton>
+  );
 }
